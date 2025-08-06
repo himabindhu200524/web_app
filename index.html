@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🛒 Clothing Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #f7cac9, #92a8d1);
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    #products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .product {
+      background-color: #fff;
+      padding: 15px;
+      width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .product img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    #cart {
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    li {
+      margin: 10px 0;
+      list-style: none;
+    }
+
+    li button {
+      background-color: #dc3545;
+    }
+
+    li button:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🛍 My Clothing Store</h1>
+
+  <div id="products"></div>
+
+  <h2 style="text-align:center">🛒 Your Cart</h2>
+  <ul id="cart"></ul>
+
+  <script>
+    const products = [
+      {
+        id: 1,
+        name: "T-Shirt",
+        price: 500,
+        image: "https://cdn.pixabay.com/photo/2023/05/06/01/34/t-shirt-7973404_1280.jpg"
+      },
+      {
+        id: 2,
+        name: "Jeans",
+        price: 600,
+        image: "https://handcmediastorage.blob.core.windows.net/productimages/WB/WBPZW001-Z33-137779-1400px-1820px.jpg"
+      },
+      {
+        id: 3,
+        name: "Sneakers",
+        price: 1000,
+        image: "https://feature.com/cdn/shop/products/Y-3-Orisan---None-None-FX1411----10-19-2020---01-3.jpg?v=1603226508"
+      },
+      {
+        id: 4,
+        name: "Jacket",
+        price: 500,
+        image: "https://images-na.ssl-images-amazon.com/images/I/71xAu2L6JML._AC_UL1471_.jpg"
+      }
+    ];
+
+    const cart = [];
+
+    const productsDiv = document.getElementById('products');
+    const cartUl = document.getElementById('cart');
+
+    function renderProducts() {
+      productsDiv.innerHTML = '';
+      products.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>$${product.price}</p>
+          <button onclick="addToCart(${product.id})">Add to Cart</button>
+        `;
+        productsDiv.appendChild(div);
+      });
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      cart.push(product);
+      renderCart();
+    }
+
+    function renderCart() {
+      cartUl.innerHTML = '';
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${item.name} - $${item.price}
+          <button onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartUl.appendChild(li);
+      });
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    renderProducts();
+  </script>
+
+</body>
+</html>
